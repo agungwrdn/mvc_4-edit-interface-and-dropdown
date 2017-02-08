@@ -1,8 +1,5 @@
 ﻿using asp_mvc_2.Models.DB;
 using asp_mvc_2.Models.EntityManager;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,11 +10,8 @@ namespace asp_mvc_2.Security
  {
 
  private readonly string[] userAssignedRoles;
-
  public AuthorizeRolesAttribute(params string[] roles) {
-
  this.userAssignedRoles = roles;
-
  }
 
  protected override bool AuthorizeCore(HttpContextBase httpContext) {
@@ -30,29 +24,22 @@ namespace asp_mvc_2.Security
 
  foreach (var roles in userAssignedRoles) {
 
- authorize = UM.IsUserInRole(httpContext.User.Identity.Name,
-
-roles);
+ authorize = UM.IsUserInRole(httpContext.User.Identity.Name,roles);
 
  if (authorize)
 
  return authorize;
-
- }
-
+    }
  }
 
  return authorize;
 
  }
 
- protected override void HandleUnauthorizedRequest(AuthorizationContext
-
-filterContext) {
+ protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext) {
 
  filterContext.Result = new RedirectResult("~/Home/UnAuthorized");
 
- }
-
- }
+         }
+    }
 }
